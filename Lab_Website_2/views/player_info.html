@@ -1,0 +1,162 @@
+<!-- Player Information Page -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>2018 Player Info</title>
+	<link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon'/>
+    <!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">  
+	<link href="../resources/css/my_style.css" rel="stylesheet">
+
+	<!-- JavaScript Scripts -->
+	
+	<script>
+		player = [{p_name: 'K.D Nixon', p_year: 'Junior', p_major: 'Communications', g_played: 34, player_img: '../resources/img/kd.jpg', p_yards: 38, r_yards: 21, rec_yards: 1290}, {p_name: 'Laviska Shenault Jr.', p_year: 'Junior', p_major: 'Sports Medicine', g_played: 27, player_img: '../resources/img/cu.jpg', p_yards: 0, r_yards: 280, rec_yards: 1943}, {p_name: 'Steven Montez', p_year: 'Senior', p_major: 'Human Studies', g_played: 45, player_img: '../resources/img/steve.jpeg', p_yards: 9710, r_yards: 960, rec_yards: 11}];
+			function loadPlayersPage(){
+				var i;
+				var l = player.length;
+				var players = document.getElementById('player_selector');
+				for (i = 0; i < player.length; i++){
+					var a = document.createElement('a');
+					a.className = "dropdown-item"; // Make sure we make it a 
+					// nice looking menu item
+					var text = document.createTextNode(player[i].p_name);
+					a.appendChild(text);
+					a.title = player[i].p_name;
+					a.href = "#";
+					players.appendChild(a);
+					var br = document.createElement('br');
+					players.appendChild(br); // Just makes the list look nicer
+					a.setAttribute('onclick', 'switchPlayers(' + i + ')');
+					
+				}
+			}
+			function switchPlayers(playerNum){
+				table = document.getElementById('player_table');
+				image = document.getElementById('playerImage');
+				var i;
+				var l = table.rows.length;
+				avg_p_yards = player[playerNum].p_yards / player[playerNum].g_played;
+				avg_r_yards = player[playerNum].r_yards / player[playerNum].g_played;
+				avg_rec_yards = player[playerNum].rec_yards / player[playerNum].g_played;
+
+				table.rows[0].cells[1].innerHTML = player[playerNum].p_year;
+				table.rows[1].cells[1].innerHTML = player[playerNum].p_major;
+				table.rows[2].cells[1].innerHTML = player[playerNum].g_played;
+				table.rows[3].cells[0].innerHTML = "Passing Yards: " + player[playerNum].p_yards;
+				table.rows[4].cells[0].innerHTML = "Rushing Yards: " + player[playerNum].r_yards;
+				table.rows[5].cells[0].innerHTML = "Receiving Yards: " + player[playerNum].rec_yards;
+
+				// Calculating the Averages
+				
+				table.rows[3].cells[1].innerHTML = "Average Passing Yards:  " + avg_p_yards.toPrecision(3);
+				table.rows[4].cells[1].innerHTML = "Average Rushing Yards:  " + avg_r_yards.toPrecision(3);
+				table.rows[5].cells[1].innerHTML = "Average Receiving Yards:  " + avg_rec_yards.toPrecision(3);
+
+				image.src = player[playerNum].player_img;
+			} 
+	</script>
+
+  </head>
+  <body onload="loadPlayersPage()">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="home.html">
+		<img class="rounded-circle" src="../resources/img/cu_boulder_logo.jpg" alt="" width="30" height="30">
+	  </a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarText">
+		<ul class="navbar-nav mr-auto">
+		 <li class="nav-item">
+			<a class="nav-link" href="home.html">Home</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link" href="team_stats.html">Season Stats <span class="sr-only">(current)</span></a>
+		  </li>
+		  <li class="nav-item active">
+			<a class="nav-link" href="player_info.html">Player Information</a>
+		  </li>
+		</ul>
+		<div class="form-inline my-2 my-lg-0">
+			<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+		</div>
+	  </div>
+	</nav>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+					<img class="card-img-top" src="../resources/img/cu_boulder_logo.jpg" alt="CU" height="250px" width="20px" id="playerImage">
+				</div>
+				<br>
+				<div class="dropdown">
+					<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select One of Your Colorado Buffaloes 
+					</button>
+					<div class="dropdown-menu" id="player_selector">
+  					</div>
+				</div>
+				<!-- 
+					Todo: This section will hold a Bootstrap Card containing
+						   a demo image (temp_image.svg) and a Bootstrap Dropdown menu
+						   to allow the user to select between 3 temp players (switching between
+						   the players will be implemented in a future lab).
+				-->
+			</div>
+			<div class="col-8">
+				<table class="table" id="player_table"> 
+					<thead>
+						<tr>
+							<th scope="col">Year: </th>
+							<th scope="col"></th>
+						</tr>
+						<tr>
+							<th scope="col">Major: </th>
+							<th scope="col"></th>
+						</tr>
+						<tr>
+							<th scope="col">Games Played: </th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td scope="col">Passing Yards:</td>
+							<td scope="col">Average Passing Yards:</td>
+						</tr>
+						<tr>
+							<td scope="col">Rushing Yards:</td>
+							<td scope="col">Average Rushing Yards:</td>
+						</tr>
+						<tr>
+							<td scope="col">Receiving Yards:</td>
+							<td scope="col">Average Receiving Yards:</td>
+						</tr>
+					</tbody>
+					
+
+				</table>
+				<!-- 
+					Todo: This section will hold a table with a temp player's information
+					
+					|  Year                |  Junior                  |
+					|  Major               |  History                 |
+					|  Games Played        |  32                      |
+					|  Passing Yards: 855  |  Avg. Passing Yards: 26  |
+					|  Rushing Yards: 378  |  Avg. Rushing Yards: 12  |
+					|  Receiving Yards: 57 |  Avg. Receiving Yards: 2 |
+				-->
+			</div>
+		</div>
+		
+	</div>
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

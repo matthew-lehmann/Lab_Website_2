@@ -1,0 +1,10 @@
+/* Add any css you want to use for you website here */
+h1 {
+	padding:10px;
+}
+.jumbotron {
+	min-height: 400px;
+}
+h2 {
+	font-size:48px;
+}
